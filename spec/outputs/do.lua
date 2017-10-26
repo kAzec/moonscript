@@ -14,8 +14,7 @@ do
     return "hello: " .. things
   end
 end
-local _
-_ = function()
+local function _()
   if something then
     do
       return "yeah"

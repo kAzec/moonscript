@@ -55,12 +55,10 @@ for z in items do
   end
 end
 require("util")
-local dump
-dump = function(x)
+local function dump(x)
   return print(util.dump(x))
 end
-local range
-range = function(count)
+local function range(count)
   local i = 0
   return coroutine.wrap(function()
     while i < count do
@@ -239,8 +237,7 @@ for _index_0 = a, _max_2 < 0 and #x + _max_2 or _max_2, c do
   local y = x[_index_0]
   print(y)
 end
-local normal
-normal = function(hello)
+local function normal(hello)
   local _accum_0 = { }
   local _len_0 = 1
   for x in yeah do

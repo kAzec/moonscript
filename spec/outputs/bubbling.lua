@@ -1,11 +1,9 @@
-local f
-f = function(...)
+local function f(...)
   return #{
     ...
   }
 end
-local dont_bubble
-dont_bubble = function()
+local function dont_bubble()
   local _accum_0 = { }
   local _len_0 = 1
   for x in (function(...)
@@ -40,8 +38,7 @@ do
   end
   j = _accum_0
 end
-local m
-m = function(...)
+local function m(...)
   local _accum_0 = { }
   local _len_0 = 1
   local _list_0 = {

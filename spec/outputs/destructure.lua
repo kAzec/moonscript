@@ -154,8 +154,7 @@ do
     a, b, c = _obj_0[1], _obj_0[2], _obj_0[3]
   end
 end
-local _
-_ = function(z)
+local function _(z)
   local a, b, c
   a, b, c = z[1], z[2], z[3]
 end

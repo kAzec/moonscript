@@ -1,5 +1,4 @@
-local _
-_ = function()
+local function _()
   local joop = 2302
   return function(hi)
     local d = 100

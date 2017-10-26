@@ -1,6 +1,5 @@
 do
-  local a
-  a = function()
+  local function a()
     do
       local _with_0 = something
       print(_with_0.hello)
@@ -154,8 +153,7 @@ do
   end
 end
 do
-  local _
-  _ = function()
+  local function _()
     do
       local _with_0 = hi
       return _with_0.a, _with_0.b

@@ -1,5 +1,4 @@
-local _
-_ = function()
+local function _()
   local _list_0 = things
   for _index_0 = 1, #_list_0 do
     local x = _list_0[_index_0]

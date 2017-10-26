@@ -1,7 +1,6 @@
 local hello = "hello"
 local world = "world"
-local _
-_ = function()
+local function _()
   local hello = 3223
 end
 _ = function(a)

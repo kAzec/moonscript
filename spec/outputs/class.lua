@@ -373,8 +373,7 @@ x = self.__class.hello
 self:hello("world")
 self.__class:hello("world")
 self.__class:one(self.__class:two(4, 5)(self.three, self.four))
-local xx
-xx = function(hello, world, cool)
+local function xx(hello, world, cool)
   self.hello, self.__class.world = hello, world
 end
 local ClassMan
@@ -445,8 +444,7 @@ do
   Whacko = _class_0
 end
 print("hello")
-local yyy
-yyy = function()
+local function yyy()
   local Cool
   do
     local _class_0

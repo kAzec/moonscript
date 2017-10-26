@@ -35,8 +35,7 @@ end
 for x in y,z,k do
   print(x)
 end
-local x
-x = function()
+local function x()
   for x in y do
     local _ = y
   end
@@ -89,8 +88,7 @@ do
   end
   y = _accum_0
 end
-local _
-_ = function()
+local function _()
   for k = 10, 40 do
     _ = "okay"
   end

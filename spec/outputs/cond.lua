@@ -150,8 +150,7 @@ else
     end
   end
 end
-local kzy
-kzy = function()
+local function kzy()
   do
     local something = true
     if something then

@@ -1,9 +1,7 @@
-local x
-x = function()
+local function x()
   return print(what)
 end
-local _
-_ = function() end
+local function _() end
 _ = function()
   return function()
     return function() end
@@ -17,13 +15,11 @@ open(function()
 end)
 open(function()
   the(door)
-  local hello
-  hello = function()
+  local function hello()
     return my(func)
   end
 end)
-local h
-h = function()
+local function h()
   return hi
 end
 eat(function() end, world);
@@ -61,8 +57,7 @@ _ = function(x)
     end
   end
 end
-local something
-something = function(hello, world)
+local function something(hello, world)
   if hello == nil then
     hello = 100
   end
@@ -128,8 +123,7 @@ end, 123)
 x = function(a, b)
   return print("what")
 end
-local y
-y = function(a, b)
+local function y(a, b)
   if a == nil then
     a = "hi"
   end
@@ -138,8 +132,7 @@ y = function(a, b)
   end
   return print("what")
 end
-local z
-z = function(a, b)
+local function z(a, b)
   if a == nil then
     a = "hi"
   end
@@ -148,17 +141,7 @@ z = function(a, b)
   end
   return print("what")
 end
-local j
-j = function(f, g, m, a, b)
-  if a == nil then
-    a = "hi"
-  end
-  if b == nil then
-    b = 23
-  end
-  return print("what")
-end
-y = function(a, b, ...)
+local function j(f, g, m, a, b)
   if a == nil then
     a = "hi"
   end
@@ -176,8 +159,16 @@ y = function(a, b, ...)
   end
   return print("what")
 end
-local args
-args = function(a, b)
+y = function(a, b, ...)
+  if a == nil then
+    a = "hi"
+  end
+  if b == nil then
+    b = 23
+  end
+  return print("what")
+end
+local function args(a, b)
   return print("what")
 end
 args = function(a, b)
