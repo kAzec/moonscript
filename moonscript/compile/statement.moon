@@ -29,6 +29,13 @@ import unpack from require "moonscript.util"
     names, values = unpack node, 2
 
     undeclared = @declare names
+
+    if #names == 1 and #undeclared == 1 and ntype(values[1]) == "fndef"
+      name, value, line = undeclared[1], @value(values[1]), @line!
+      value.header = value.header\gsub("function", "local function " .. name, 1)
+      line\append value
+      return line
+
     declare = "local " .. concat(undeclared, ", ")
 
     has_fndef = false
