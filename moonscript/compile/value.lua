@@ -28,8 +28,7 @@ return {
     end
   end,
   exp = function(self, node)
-    local _comp
-    _comp = function(i, value)
+    local function _comp(i, value)
       if i % 2 == 1 and value == "!=" then
         value = "~="
       end
@@ -97,8 +96,7 @@ return {
         end
       end
     end
-    local chain_item
-    chain_item = function(node)
+    local function chain_item(node)
       local t, arg = unpack(node)
       if t == "call" then
         return "(", self:values(arg), ")"
@@ -241,8 +239,7 @@ return {
     local items = unpack(node, 2)
     do
       local _with_0 = self:block("{", "}")
-      local format_line
-      format_line = function(tuple)
+      local function format_line(tuple)
         if #tuple == 2 then
           local key, value = unpack(tuple)
           if ntype(key) == "key_literal" and data.lua_keywords[key[2]] then

@@ -69,8 +69,7 @@ bind_methods = function(obj)
     __index = function(self, name)
       local val = obj[name]
       if val and lua.type(val) == "function" then
-        local bound
-        bound = function(...)
+        local function bound(...)
           return val(obj, ...)
         end
         self[name] = bound

@@ -23,8 +23,7 @@ local terminating = Set({
   "return",
   "break"
 })
-local ntype
-ntype = function(node)
+local function ntype(node)
   local _exp_0 = type(node)
   if "nil" == _exp_0 then
     return "nil"
@@ -45,25 +44,21 @@ do
     return moon_type(val)
   end
 end
-local value_can_be_statement
-value_can_be_statement = function(node)
+local function value_can_be_statement(node)
   if not (ntype(node) == "chain") then
     return false
   end
   return ntype(node[#node]) == "call"
 end
-local is_value
-is_value = function(stm)
+local function is_value(stm)
   local compile = require("moonscript.compile")
   local transform = require("moonscript.transform")
   return compile.Block:is_value(stm) or transform.Value:can_transform(stm)
 end
-local value_is_singular
-value_is_singular = function(node)
+local function value_is_singular(node)
   return type(node) ~= "table" or node[1] ~= "exp" or #node == 2
 end
-local is_slice
-is_slice = function(node)
+local function is_slice(node)
   return ntype(node) == "chain" and ntype(node[#node]) == "slice"
 end
 local t = { }
@@ -159,8 +154,7 @@ local node_types = {
     }
   }
 }
-local build_table
-build_table = function()
+local function build_table()
   local key_table = { }
   for node_name, args in pairs(node_types) do
     local index = { }
@@ -173,8 +167,7 @@ build_table = function()
   return key_table
 end
 local key_table = build_table()
-local make_builder
-make_builder = function(name)
+local function make_builder(name)
   local spec = node_types[name]
   if not spec then
     error("don't know how to build node: " .. name)
@@ -300,8 +293,7 @@ local smart_node_mt = setmetatable({ }, {
     return mt
   end
 })
-local smart_node
-smart_node = function(node)
+local function smart_node(node)
   return setmetatable(node, smart_node_mt[ntype(node)])
 end
 local NOOP = {

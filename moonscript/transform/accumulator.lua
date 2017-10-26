@@ -5,8 +5,7 @@ local NameProxy
 NameProxy = require("moonscript.transform.names").NameProxy
 local insert
 insert = table.insert
-local is_singular
-is_singular = function(body)
+local function is_singular(body)
   if #body ~= 1 then
     return false
   end
@@ -100,8 +99,7 @@ do
   _base_0.__class = _class_0
   Accumulator = _class_0
 end
-local default_accumulator
-default_accumulator = function(self, node)
+local function default_accumulator(self, node)
   return Accumulator():convert(node)
 end
 return {

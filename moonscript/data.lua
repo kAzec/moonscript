@@ -3,8 +3,7 @@ do
   local _obj_0 = table
   concat, remove, insert = _obj_0.concat, _obj_0.remove, _obj_0.insert
 end
-local Set
-Set = function(items)
+local function Set(items)
   local _tbl_0 = { }
   for _index_0 = 1, #items do
     local k = items[_index_0]

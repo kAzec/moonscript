@@ -30,8 +30,7 @@ do
   _base_0.__class = _class_0
   Run = _class_0
 end
-local last_stm
-last_stm = function(stms)
+local function last_stm(stms)
   local last_exp_id = 0
   for i = #stms, 1, -1 do
     local stm = stms[i]
@@ -45,8 +44,7 @@ last_stm = function(stms)
   end
   return stms[last_exp_id], last_exp_id, stms
 end
-local transform_last_stm
-transform_last_stm = function(stms, fn)
+local function transform_last_stm(stms, fn)
   local _, last_idx, _stms = last_stm(stms)
   if _stms ~= stms then
     error("cannot transform last node in group")
@@ -69,16 +67,13 @@ transform_last_stm = function(stms, fn)
     return _accum_0
   end)()
 end
-local chain_is_stub
-chain_is_stub = function(chain)
+local function chain_is_stub(chain)
   local stub = chain[#chain]
   return stub and ntype(stub) == "colon"
 end
-local implicitly_return
-implicitly_return = function(scope)
+local function implicitly_return(scope)
   local is_top = true
-  local fn
-  fn = function(stm)
+  local function fn(stm)
     local t = ntype(stm)
     if t == "decorated" then
       stm = scope.transform.statement(stm)

@@ -26,12 +26,10 @@ end
 local Cut = P(function()
   return false
 end)
-local ensure
-ensure = function(patt, finally)
+local function ensure(patt, finally)
   return patt * finally + finally * Cut
 end
-local extract_line
-extract_line = function(str, start_pos)
+local function extract_line(str, start_pos)
   str = str:sub(start_pos)
   do
     local m = str:match("^(.-)\n")
@@ -41,8 +39,7 @@ extract_line = function(str, start_pos)
   end
   return str:match("^.-$")
 end
-local show_line_position
-show_line_position = function(str, pos, context)
+local function show_line_position(str, pos, context)
   if context == nil then
     context = true
   end
@@ -93,8 +90,7 @@ show_line_position = function(str, pos, context)
   out = table.concat(out)
   return (out:gsub("\n*$", ""))
 end
-local mark
-mark = function(name)
+local function mark(name)
   return function(...)
     return {
       name,
@@ -102,8 +98,7 @@ mark = function(name)
     }
   end
 end
-local pos
-pos = function(patt)
+local function pos(patt)
   return (Cp() * patt) / function(pos, value)
     if type(value) == "table" then
       value[-1] = pos
@@ -111,8 +106,7 @@ pos = function(patt)
     return value
   end
 end
-local got
-got = function(what, context)
+local function got(what, context)
   if context == nil then
     context = true
   end
@@ -121,8 +115,7 @@ got = function(what, context)
     return true
   end)
 end
-local flatten_or_mark
-flatten_or_mark = function(name)
+local function flatten_or_mark(name)
   return function(tbl)
     if #tbl == 1 then
       return tbl[1]
@@ -152,8 +145,7 @@ do
     end
   end
 end
-local check_assignable
-check_assignable = function(str, pos, value)
+local function check_assignable(str, pos, value)
   if is_assignable(value) then
     return true, value
   else
@@ -195,8 +187,7 @@ do
     end
   end
 end
-local format_single_assign
-format_single_assign = function(lhs, assign)
+local function format_single_assign(lhs, assign)
   if assign then
     return format_assign({
       lhs
@@ -205,16 +196,13 @@ format_single_assign = function(lhs, assign)
     return lhs
   end
 end
-local sym
-sym = function(chars)
+local function sym(chars)
   return Space * chars
 end
-local symx
-symx = function(chars)
+local function symx(chars)
   return chars
 end
-local simple_string
-simple_string = function(delim, allow_interpolation)
+local function simple_string(delim, allow_interpolation)
   local inner = P("\\" .. tostring(delim)) + "\\\\" + (1 - P(delim))
   if allow_interpolation then
     local interp = symx('#{') * V("Exp") * sym('}')
@@ -224,8 +212,7 @@ simple_string = function(delim, allow_interpolation)
   end
   return C(symx(delim)) * inner * sym(delim) / mark("string")
 end
-local wrap_func_arg
-wrap_func_arg = function(value)
+local function wrap_func_arg(value)
   return {
     "call",
     {
@@ -233,8 +220,7 @@ wrap_func_arg = function(value)
     }
   }
 end
-local join_chain
-join_chain = function(callee, args)
+local function join_chain(callee, args)
   if #args == 0 then
     return callee
   end
@@ -252,8 +238,7 @@ join_chain = function(callee, args)
     args
   }
 end
-local wrap_decorator
-wrap_decorator = function(stm, dec)
+local function wrap_decorator(stm, dec)
   if not (dec) then
     return stm
   end
@@ -263,12 +248,10 @@ wrap_decorator = function(stm, dec)
     dec
   }
 end
-local check_lua_string
-check_lua_string = function(str, pos, right, left)
+local function check_lua_string(str, pos, right, left)
   return #left == #right
 end
-local self_assign
-self_assign = function(name, pos)
+local function self_assign(name, pos)
   return {
     {
       "key_literal",

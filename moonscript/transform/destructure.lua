@@ -11,8 +11,7 @@ local unpack
 unpack = require("moonscript.util").unpack
 local user_error
 user_error = require("moonscript.errors").user_error
-local join
-join = function(...)
+local function join(...)
   do
     local out = { }
     local i = 1
@@ -30,8 +29,7 @@ join = function(...)
     return out
   end
 end
-local has_destructure
-has_destructure = function(names)
+local function has_destructure(names)
   for _index_0 = 1, #names do
     local n = names[_index_0]
     if ntype(n) == "table" then
@@ -40,8 +38,7 @@ has_destructure = function(names)
   end
   return false
 end
-local extract_assign_names
-extract_assign_names = function(name, accum, prefix)
+local function extract_assign_names(name, accum, prefix)
   if accum == nil then
     accum = { }
   end
@@ -101,8 +98,7 @@ extract_assign_names = function(name, accum, prefix)
   end
   return accum
 end
-local build_assign
-build_assign = function(scope, destruct_literal, receiver)
+local function build_assign(scope, destruct_literal, receiver)
   local extracted_names = extract_assign_names(destruct_literal)
   local names = { }
   local values = { }
@@ -147,8 +143,7 @@ build_assign = function(scope, destruct_literal, receiver)
     inner
   })
 end
-local split_assign
-split_assign = function(scope, assign)
+local function split_assign(scope, assign)
   local names, values = unpack(assign, 2)
   local g = { }
   local total_names = #names

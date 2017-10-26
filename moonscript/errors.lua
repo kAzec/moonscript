@@ -7,15 +7,13 @@ do
 end
 local split, pos_to_line
 split, pos_to_line = util.split, util.pos_to_line
-local user_error
-user_error = function(...)
+local function user_error(...)
   return error({
     "user-error",
     ...
   })
 end
-local lookup_line
-lookup_line = function(fname, pos, cache)
+local function lookup_line(fname, pos, cache)
   if not cache[fname] then
     do
       local _with_0 = assert(io.open(fname))
@@ -25,8 +23,7 @@ lookup_line = function(fname, pos, cache)
   end
   return pos_to_line(cache[fname], pos)
 end
-local reverse_line_number
-reverse_line_number = function(fname, line_table, line_num, cache)
+local function reverse_line_number(fname, line_table, line_num, cache)
   for i = line_num, 0, -1 do
     if line_table[i] then
       return lookup_line(fname, line_table[i], cache)
@@ -34,8 +31,7 @@ reverse_line_number = function(fname, line_table, line_num, cache)
   end
   return "unknown"
 end
-local truncate_traceback
-truncate_traceback = function(traceback, chunk_func)
+local function truncate_traceback(traceback, chunk_func)
   if chunk_func == nil then
     chunk_func = "moonscript_chunk"
   end
@@ -62,8 +58,7 @@ truncate_traceback = function(traceback, chunk_func)
   traceback[#traceback] = traceback[#traceback]:gsub(rep, "main chunk")
   return concat(traceback, "\n")
 end
-local rewrite_traceback
-rewrite_traceback = function(text, err)
+local function rewrite_traceback(text, err)
   local line_tables = require("moonscript.line_tables")
   local V, S, Ct, C
   V, S, Ct, C = lpeg.V, lpeg.S, lpeg.Ct, lpeg.C
@@ -76,8 +71,7 @@ rewrite_traceback = function(text, err)
     Line = "\t" * C((1 - Break) ^ 0) * (Break + -1)
   })
   local cache = { }
-  local rewrite_single
-  rewrite_single = function(trace)
+  local function rewrite_single(trace)
     local fname, line, msg = trace:match('^(.-):(%d+): (.*)$')
     local tbl = line_tables["@" .. tostring(fname)]
     if fname and tbl then

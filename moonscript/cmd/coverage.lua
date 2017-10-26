@@ -1,12 +1,10 @@
-local log
-log = function(str)
+local function log(str)
   if str == nil then
     str = ""
   end
   return io.stderr:write(str .. "\n")
 end
-local create_counter
-create_counter = function()
+local function create_counter()
   return setmetatable({ }, {
     __index = function(self, name)
       do
@@ -21,8 +19,7 @@ create_counter = function()
     end
   })
 end
-local position_to_lines
-position_to_lines = function(file_content, positions)
+local function position_to_lines(file_content, positions)
   local lines = { }
   local current_pos = 0
   local line_no = 1
@@ -40,8 +37,7 @@ position_to_lines = function(file_content, positions)
   end
   return lines
 end
-local format_file
-format_file = function(fname, positions)
+local function format_file(fname, positions)
   fname = fname:gsub("^@", "")
   local file = assert(io.open(fname))
   local content = file:read("*a")

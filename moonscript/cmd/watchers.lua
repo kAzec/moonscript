@@ -1,5 +1,4 @@
-local remove_dupes
-remove_dupes = function(list, key_fn)
+local function remove_dupes(list, key_fn)
   local seen = { }
   return (function()
     local _accum_0 = { }
@@ -31,8 +30,7 @@ remove_dupes = function(list, key_fn)
     return _accum_0
   end)()
 end
-local plural
-plural = function(count, word)
+local function plural(count, word)
   return tostring(count) .. " " .. tostring(word) .. tostring(count == 1 and "" or "s")
 end
 local Watcher

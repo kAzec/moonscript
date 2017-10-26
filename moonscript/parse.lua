@@ -38,57 +38,48 @@ local build_grammar = wrap_env(debug_grammar, function(root)
   local state = {
     last_pos = 0
   }
-  local check_indent
-  check_indent = function(str, pos, indent)
+  local function check_indent(str, pos, indent)
     state.last_pos = pos
     return _indent:top() == indent
   end
-  local advance_indent
-  advance_indent = function(str, pos, indent)
+  local function advance_indent(str, pos, indent)
     local top = _indent:top()
     if top ~= -1 and indent > top then
       _indent:push(indent)
       return true
     end
   end
-  local push_indent
-  push_indent = function(str, pos, indent)
+  local function push_indent(str, pos, indent)
     _indent:push(indent)
     return true
   end
-  local pop_indent
-  pop_indent = function()
+  local function pop_indent()
     assert(_indent:pop(), "unexpected outdent")
     return true
   end
-  local check_do
-  check_do = function(str, pos, do_node)
+  local function check_do(str, pos, do_node)
     local top = _do_stack:top()
     if top == nil or top then
       return true, do_node
     end
     return false
   end
-  local disable_do
-  disable_do = function()
+  local function disable_do()
     _do_stack:push(false)
     return true
   end
-  local pop_do
-  pop_do = function()
+  local function pop_do()
     assert(_do_stack:pop() ~= nil, "unexpected do pop")
     return true
   end
   local DisableDo = Cmt("", disable_do)
   local PopDo = Cmt("", pop_do)
   local keywords = { }
-  local key
-  key = function(chars)
+  local function key(chars)
     keywords[chars] = true
     return Space * chars * -AlphaNum
   end
-  local op
-  op = function(chars)
+  local function op(chars)
     local patt = Space * C(chars)
     if chars:match("^%w*$") then
       keywords[chars] = true
@@ -202,8 +193,7 @@ local build_grammar = wrap_env(debug_grammar, function(root)
   })
   return g, state
 end)
-local file_parser
-file_parser = function()
+local function file_parser()
   local g, state = build_grammar()
   local file_grammar = White * g * White * -1
   return {

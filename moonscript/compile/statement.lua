@@ -59,6 +59,12 @@ return {
   assign = function(self, node)
     local names, values = unpack(node, 2)
     local undeclared = self:declare(names)
+    if #names == 1 and #undeclared == 1 and ntype(values[1]) == "fndef" then
+      local name, value, line = undeclared[1], self:value(values[1]), self:line()
+      value.header = value.header:gsub("function", "local function " .. name, 1)
+      line:append(value)
+      return line
+    end
     local declare = "local " .. concat(undeclared, ", ")
     local has_fndef = false
     local i = 1
@@ -120,8 +126,7 @@ return {
       root = _with_0
     end
     local current = root
-    local add_clause
-    add_clause = function(clause)
+    local function add_clause(clause)
       local type = clause[1]
       local i = 2
       local next

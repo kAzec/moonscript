@@ -1,7 +1,6 @@
 local is_value
 is_value = require("moonscript.types").is_value
-local construct_comprehension
-construct_comprehension = function(inner, clauses)
+local function construct_comprehension(inner, clauses)
   local current_stms = inner
   for i = #clauses, 1, -1 do
     local clause = clauses[i]
@@ -44,8 +43,7 @@ construct_comprehension = function(inner, clauses)
   end
   return current_stms[1]
 end
-local comprehension_has_value
-comprehension_has_value = function(comp)
+local function comprehension_has_value(comp)
   return is_value(comp[2])
 end
 return {

@@ -3,8 +3,7 @@ do
   local _obj_0 = require("moonscript.util")
   getfenv, setfenv = _obj_0.getfenv, _obj_0.setfenv
 end
-local wrap_env
-wrap_env = function(debug, fn)
+local function wrap_env(debug, fn)
   local V, Cmt
   do
     local _obj_0 = require("lpeg")
@@ -15,8 +14,7 @@ wrap_env = function(debug, fn)
   if debug then
     local indent = 0
     local indent_char = "  "
-    local iprint
-    iprint = function(...)
+    local function iprint(...)
       local args = table.concat((function(...)
         local _accum_0 = { }
         local _len_0 = 1

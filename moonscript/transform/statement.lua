@@ -20,8 +20,7 @@ local construct_comprehension
 construct_comprehension = require("moonscript.transform.comprehension").construct_comprehension
 local unpack
 unpack = require("moonscript.util").unpack
-local with_continue_listener
-with_continue_listener = function(body)
+local function with_continue_listener(body)
   local continue_name = nil
   return {
     Run(function(self)
@@ -93,8 +92,7 @@ with_continue_listener = function(body)
     end)
   }
 end
-local extract_declarations
-extract_declarations = function(self, body, start, out)
+local function extract_declarations(self, body, start, out)
   if body == nil then
     body = self.current_stms
   end
@@ -136,8 +134,7 @@ extract_declarations = function(self, body, start, out)
   end
   return out
 end
-local expand_elseif_assign
-expand_elseif_assign = function(ifstm)
+local function expand_elseif_assign(ifstm)
   for i = 4, #ifstm do
     local case = ifstm[i]
     if ntype(case) == "elseif" and ntype(case[2]) == "assign" then
@@ -277,8 +274,7 @@ return Transformer({
         t = ntype(value)
       end
       if types.cascading[t] then
-        local ret
-        ret = function(stm)
+        local function ret(stm)
           if is_value(stm) then
             return {
               "assign",
@@ -787,8 +783,7 @@ return Transformer({
   switch = function(self, node, ret)
     local exp, conds = unpack(node, 2)
     local exp_name = NameProxy("exp")
-    local convert_cond
-    convert_cond = function(cond)
+    local function convert_cond(cond)
       local t, case_exps, body = unpack(cond)
       local out = { }
       insert(out, t == "case" and "elseif" or "else")

@@ -101,8 +101,7 @@ do
   _base_0.__class = _class_0
   NameProxy = _class_0
 end
-local is_name_proxy
-is_name_proxy = function(v)
+local function is_name_proxy(v)
   if not (type(v) == "table") then
     return false
   end

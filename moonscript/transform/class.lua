@@ -15,8 +15,7 @@ do
 end
 local unpack
 unpack = require("moonscript.util").unpack
-local transform_super
-transform_super = function(cls_name, on_base, block, chain)
+local function transform_super(cls_name, on_base, block, chain)
   if on_base == nil then
     on_base = true
   end
@@ -89,8 +88,7 @@ transform_super = function(cls_name, on_base, block, chain)
   end
   return new_chain
 end
-local super_scope
-super_scope = function(value, t, key)
+local function super_scope(value, t, key)
   local prev_method
   return {
     "scoped",
@@ -114,12 +112,10 @@ return function(self, node, ret, parent_assign)
   local base_name = NameProxy("base")
   local self_name = NameProxy("self")
   local cls_name = NameProxy("class")
-  local cls_instance_super
-  cls_instance_super = function(...)
+  local function cls_instance_super(...)
     return transform_super(cls_name, true, ...)
   end
-  local cls_super
-  cls_super = function(...)
+  local function cls_super(...)
     return transform_super(cls_name, false, ...)
   end
   local statements = { }

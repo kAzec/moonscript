@@ -25,8 +25,7 @@ local args = {
   unpack(arg, 1, base)
 }
 local opts = argparser:parse(args)
-local print_err
-print_err = function(...)
+local function print_err(...)
   local msg = table.concat((function(...)
     local _accum_0 = { }
     local _len_0 = 1
@@ -42,8 +41,7 @@ print_err = function(...)
   end)(...), "\t")
   return io.stderr:write(msg .. "\n")
 end
-local run
-run = function()
+local function run()
   if opts.version then
     require("moonscript.version").print_version()
     os.exit()
@@ -73,8 +71,7 @@ run = function()
     os.exit(1)
   end
   util.getfenv(moonscript_chunk).arg = args
-  local run_chunk
-  run_chunk = function()
+  local function run_chunk()
     moonscript.insert_loader()
     moonscript_chunk(unpack(args))
     return moonscript.remove_loader()

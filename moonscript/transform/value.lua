@@ -42,8 +42,7 @@ return Transformer({
   end,
   string = function(self, node)
     local delim = node[2]
-    local convert_part
-    convert_part = function(part)
+    local function convert_part(part)
       if type(part) == "string" or part == nil then
         return {
           "string",

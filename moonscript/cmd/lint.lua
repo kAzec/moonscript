@@ -227,8 +227,7 @@ do
   end
   LinterBlock = _class_0
 end
-local format_lint
-format_lint = function(errors, code, header)
+local function format_lint(errors, code, header)
   if not (next(errors)) then
     return 
   end
@@ -294,8 +293,7 @@ do
     })
   end
 end
-local lint_code
-lint_code = function(code, name, whitelist_globals)
+local function lint_code(code, name, whitelist_globals)
   if name == nil then
     name = "string input"
   end
@@ -309,8 +307,7 @@ lint_code = function(code, name, whitelist_globals)
   scope:lint_check_unused()
   return format_lint(scope.lint_errors, code, name)
 end
-local lint_file
-lint_file = function(fname)
+local function lint_file(fname)
   local f, err = io.open(fname)
   if not (f) then
     return nil, err

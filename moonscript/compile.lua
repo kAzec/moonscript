@@ -109,8 +109,7 @@ do
       return buffer
     end,
     __tostring = function(self)
-      local strip
-      strip = function(t)
+      local function strip(t)
         if "table" == type(t) then
           local _accum_0 = { }
           local _len_0 = 1
@@ -176,8 +175,7 @@ do
     end,
     render = function(self, buffer)
       local current = { }
-      local add_current
-      add_current = function()
+      local function add_current()
         buffer:add(concat(current))
         return buffer:mark_pos(self.pos)
       end
@@ -672,8 +670,7 @@ do
   end
   RootBlock = _class_0
 end
-local format_error
-format_error = function(msg, pos, file_str)
+local function format_error(msg, pos, file_str)
   local line_message
   if pos then
     local line = pos_to_line(file_str, pos)
@@ -687,8 +684,7 @@ format_error = function(msg, pos, file_str)
     line_message
   }, "\n")
 end
-local value
-value = function(value)
+local function value(value)
   local out = nil
   do
     local _with_0 = RootBlock()
@@ -697,8 +693,7 @@ value = function(value)
   end
   return out
 end
-local tree
-tree = function(tree, options)
+local function tree(tree, options)
   if options == nil then
     options = { }
   end

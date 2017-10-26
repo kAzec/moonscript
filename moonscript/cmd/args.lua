@@ -1,7 +1,6 @@
 local unpack
 unpack = require("moonscript.util").unpack
-local parse_spec
-parse_spec = function(spec)
+local function parse_spec(spec)
   local flags, words
   if type(spec) == "table" then
     flags, words = unpack(spec), spec
@@ -21,8 +20,7 @@ parse_spec = function(spec)
   end
   return out
 end
-local parse_arguments
-parse_arguments = function(spec, args)
+local function parse_arguments(spec, args)
   spec = parse_spec(spec)
   local out = { }
   local remaining = { }

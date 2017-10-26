@@ -30,20 +30,17 @@ local moon = {
     return base_type
   end
 }
-local pos_to_line
-pos_to_line = function(str, pos)
+local function pos_to_line(str, pos)
   local line = 1
   for _ in str:sub(1, pos):gmatch("\n") do
     line = line + 1
   end
   return line
 end
-local trim
-trim = function(str)
+local function trim(str)
   return str:match("^%s*(.-)%s*$")
 end
-local get_line
-get_line = function(str, line_num)
+local function get_line(str, line_num)
   for line in str:gmatch("([^\n]*)\n?") do
     if line_num == 1 then
       return line
@@ -51,8 +48,7 @@ get_line = function(str, line_num)
     line_num = line_num - 1
   end
 end
-local get_closest_line
-get_closest_line = function(str, line_num)
+local function get_closest_line(str, line_num)
   local line = get_line(str, line_num)
   if (not line or trim(line) == "") and line_num > 1 then
     return get_closest_line(str, line_num - 1)
@@ -60,8 +56,7 @@ get_closest_line = function(str, line_num)
     return line, line_num
   end
 end
-local split
-split = function(str, delim)
+local function split(str, delim)
   if str == "" then
     return { }
   end
@@ -74,11 +69,9 @@ split = function(str, delim)
   end
   return _accum_0
 end
-local dump
-dump = function(what)
+local function dump(what)
   local seen = { }
-  local _dump
-  _dump = function(what, depth)
+  local function _dump(what, depth)
     if depth == nil then
       depth = 0
     end
@@ -109,8 +102,7 @@ dump = function(what)
   end
   return _dump(what)
 end
-local debug_posmap
-debug_posmap = function(posmap, moon_code, lua_code)
+local function debug_posmap(posmap, moon_code, lua_code)
   local tuples
   do
     local _accum_0 = { }
@@ -176,8 +168,7 @@ local getfenv = getfenv or function(fn)
   end
   return nil
 end
-local get_options
-get_options = function(...)
+local function get_options(...)
   local count = select("#", ...)
   local opts = select(count, ...)
   if type(opts) == "table" then
@@ -188,8 +179,7 @@ get_options = function(...)
     return { }, ...
   end
 end
-local safe_module
-safe_module = function(name, tbl)
+local function safe_module(name, tbl)
   return setmetatable(tbl, {
     __index = function(self, key)
       return error("Attempted to import non-existent `" .. tostring(key) .. "` from " .. tostring(name))
