@@ -36,8 +36,8 @@ truncate_traceback = (traceback, chunk_func="moonscript_chunk") ->
 
   traceback = [t for t in *traceback[1,stop]]
 
-  rep = "function '" .. chunk_func .. "'"
-  traceback[#traceback] = traceback[#traceback]\gsub rep, "main chunk"
+  rep = "(%d+): in %a+ '?" .. chunk_func .. "'?$"
+  traceback[#traceback] = traceback[#traceback]\gsub rep, "%1: in main chunk"
 
   concat traceback, "\n"
 
@@ -85,4 +85,3 @@ rewrite_traceback = (text, err) ->
 
 
 { :rewrite_traceback, :truncate_traceback, :user_error, :reverse_line_number }
-

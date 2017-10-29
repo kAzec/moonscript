@@ -58,8 +58,8 @@ truncate_traceback = function(traceback, chunk_func)
     end
     traceback = _accum_0
   end
-  local rep = "function '" .. chunk_func .. "'"
-  traceback[#traceback] = traceback[#traceback]:gsub(rep, "main chunk")
+  local rep = "(%d+): in %a+ '?" .. chunk_func .. "'?$"
+  traceback[#traceback] = traceback[#traceback]:gsub(rep, "%1: in main chunk")
   return concat(traceback, "\n")
 end
 local rewrite_traceback
